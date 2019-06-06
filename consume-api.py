@@ -9,7 +9,6 @@ def saveFile(username):
         # a+ = append + create file if doesn't exist
         file.write('username: ' + username + "\n")
     
-    
 
 try:
     response = requests.get('https://uinames.com/api/').json()
