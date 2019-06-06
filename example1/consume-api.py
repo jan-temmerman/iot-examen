@@ -27,16 +27,21 @@ def saveData(data, collection):
         print('Something went wrong while saving the data, try again')
     loadView(data)
 
+root = Tk()
+
+
 def loadView(data):
     # create tkinter view
-    root = Tk()
+    
     nameVar = StringVar()
     label = Label( root, textvariable = nameVar, relief = RAISED )
     button = Button(root, text="Close", command=root.destroy)
     nameVar.set(data)
     label.pack()
     button.pack()
-    root.mainloop()
+    
 
 # pass wanted collection name to the function
-getData( collection = 'region')
+getData( collection = 'gender')
+
+root.mainloop()
