@@ -4,28 +4,39 @@ import tkinter
 from tkinter import *
 
 
-def saveFile(username):
-    with open('users.txt', 'a+') as file:
-        # a+ = append + create file if doesn't exist
-        file.write('username: ' + username + "\n")
-    
 
-try:
-    response = requests.get('https://uinames.com/api/').json()
-    print('Saving file')
-    username = response['name']
-    saveFile(username)
-except Exception as e:
-    print('Bad response from the server: ' + str(e))
+def getData(collection):
+    data = requests.get('https://uinames.com/api/').json()
+
+    # print usable collection names
+    print('Possible collections are: ')
+    for key in data:
+        print(key)
+
+    # select wanted collection from data
+    response = data[collection]
+    saveData(response, collection)
 
 
-root = Tk()
+def saveData(data, collection):
+    try:
+        with open('users.txt', 'a+') as file:
+            # a+ = append + create file if doesn't exist
+            file.write( collection + ': ' + data + "\n")
+    except:
+        print('Something went wrong while saving the data, try again')
+    loadView(data)
 
-var = StringVar()
-label = Label( root, textvariable = var, relief = RAISED )
-button = Button(root, text="OK", command=root.destroy)
+def loadView(data):
+    # create tkinter view
+    root = Tk()
+    nameVar = StringVar()
+    label = Label( root, textvariable = nameVar, relief = RAISED )
+    button = Button(root, text="New User", command=root.destroy)
+    nameVar.set(data)
+    label.pack()
+    button.pack()
+    root.mainloop()
 
-var.set(username)
-label.pack()
-button.pack()
-root.mainloop()
+# pass wanted collection name to the function
+getData( collection = 'region')
