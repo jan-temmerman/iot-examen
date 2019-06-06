@@ -32,7 +32,7 @@ def loadView(data):
     root = Tk()
     nameVar = StringVar()
     label = Label( root, textvariable = nameVar, relief = RAISED )
-    button = Button(root, text="New User", command=root.destroy)
+    button = Button(root, text="Close", command=root.destroy)
     nameVar.set(data)
     label.pack()
     button.pack()
